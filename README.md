@@ -10,3 +10,8 @@ sync/async APIs, dual-inheritance exceptions, pickle/numpy knowledge index).
 
 Phase 0 (foundation) in progress: `pkg/simonerr`, `internal/config`,
 `internal/reliability`, `internal/router`, `internal/agent/response`.
+
+Phase 1 (core execution) complete: `internal/model` (+ openai/anthropic/ollama
+providers), `internal/tool` (registration + ToolRunner), `internal/memory`,
+`internal/agent` (ReAct loop + structured output), `internal/multi`
+(Group/Pool/Triage).
