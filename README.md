@@ -22,3 +22,11 @@ format replacing Python's pickle+numpy), `internal/knowledge/extract`
 (pdf/docx/xlsx/pptx text extraction), `internal/knowledge` (chunking +
 KnowledgeBase), wired into `internal/agent` as an optional knowledge-context
 system message via the KnowledgeSearcher interface.
+
+Phase 3 (surface) complete: `internal/mcp` (official MCP Go SDK, stdio
+client), `internal/planner` (goal decomposition + sequential execution),
+`internal/tui` (terminal chat: Markdown→ANSI rendering + /quit /clear —
+line-based input via bufio.Scanner rather than raw-mode tab-completion, a
+deliberate simplification), `cmd/simon` (chat/ask/index/plan CLI via the
+stdlib `flag` package). The binary builds and runs end-to-end against a
+real local Ollama server.

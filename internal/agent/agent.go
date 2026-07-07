@@ -81,6 +81,13 @@ func WithModel(name string) Option { return func(a *Agent) { a.modelName = name 
 
 func WithName(name string) Option { return func(a *Agent) { a.Name = name } }
 
+// ModelName returns the provider/model label this Agent was pinned to via
+// WithModel (or "" for router-default resolution). Exposed so callers that
+// build a second, related Agent (e.g. internal/planner's dedicated
+// task-planning agent) can match its provider, mirroring Python's
+// `Agent(model=self.agent._model_name)`.
+func (a *Agent) ModelName() string { return a.modelName }
+
 func WithOnEvent(fn func(Event)) Option { return func(a *Agent) { a.onEvent = fn } }
 
 // WithModelOverride bypasses router-based provider selection entirely,

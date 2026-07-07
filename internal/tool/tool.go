@@ -67,6 +67,19 @@ func New[P any](name, description string, fn func(ctx context.Context, params P)
 	}
 }
 
+// NewRaw builds a Tool from an already-known JSON schema and a raw
+// JSON-in/text-out function, bypassing New's struct-reflection schema
+// generation. Intended for tools whose schema is only known at runtime —
+// notably MCP tools, whose input schema comes from the remote server, not a
+// Go type — mirroring Python's direct `Tool(name=..., schema=..., fn=...)`
+// construction in simon/tools/mcp_client.py.
+func NewRaw(name, description string, schema map[string]any, fn func(ctx context.Context, raw json.RawMessage) (string, error)) Tool {
+	if schema == nil {
+		schema = map[string]any{"type": "object", "properties": map[string]any{}}
+	}
+	return Tool{Name: name, Description: description, Schema: schema, fn: fn}
+}
+
 // schemaFor reflects P into a flat (non-$ref) JSON schema object, matching
 // the {"type": "object", "properties": {...}, "required": [...]} shape
 // Python's _build_schema produces.
