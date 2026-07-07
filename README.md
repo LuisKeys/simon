@@ -1,10 +1,42 @@
 # simon-go
 
-Go port of [Simon SDK](https://github.com/<org>/simon_sdk), a lightweight AI agent framework.
+Go port of "Simon SDK," a lightweight AI agent framework originally
+written in Python. There is no separate migration-plan document — design
+rationale for hard-to-port Python idioms (reflection-based tool schemas,
+`contextvars`, dual sync/async APIs, dual-inheritance exceptions,
+pickle/numpy knowledge index) lives inline in package doc comments, and is
+indexed in [docs/](docs/).
 
-See the migration plan for scope, phased delivery, and design decisions for the
-hard-to-port Python idioms (reflection-based tool schemas, contextvars, dual
-sync/async APIs, dual-inheritance exceptions, pickle/numpy knowledge index).
+## Quick start
+
+```
+cp .env.example .env   # add an API key, or point OLLAMA_HOST at a local server
+go build ./...
+go run ./cmd/simon chat
+```
+
+See [docs/configuration.md](docs/configuration.md) for every environment
+variable, and [docs/examples.md](docs/examples.md) for ~15 runnable
+programs demonstrating individual features.
+
+## Documentation
+
+- [docs/architecture.md](docs/architecture.md) — layer map and cross-cutting design decisions (start here)
+- [docs/agent-core.md](docs/agent-core.md) — the ReAct loop, model providers, tools, memory, multi-agent patterns
+- [docs/knowledge-base.md](docs/knowledge-base.md) — document ingestion, embeddings, the SIDX binary index format
+- [docs/activity-pipeline.md](docs/activity-pipeline.md) — sensors, events, privacy, semantic classification, habit mining
+- [docs/surface.md](docs/surface.md) — the CLI, TUI, planner, and MCP client
+- [docs/examples.md](docs/examples.md) — what each program under `examples/` demonstrates and how to run it
+- [docs/configuration.md](docs/configuration.md) — every environment variable, with defaults
+
+## Commands
+
+- Build: `go build ./...`
+- Test all: `go test ./...`
+- Single test: `go test -run TestName ./internal/pkg/...`
+- Race-sensitive pipeline test: `go test -race ./internal/pipeline/...`
+- Vet: `go vet ./...` (no golangci-lint or other configured linter; no Makefile, no CI workflow)
+- Run the CLI: `go run ./cmd/simon chat|ask|index|plan`
 
 ## Status
 
