@@ -30,3 +30,15 @@ line-based input via bufio.Scanner rather than raw-mode tab-completion, a
 deliberate simplification), `cmd/simon` (chat/ask/index/plan CLI via the
 stdlib `flag` package). The binary builds and runs end-to-end against a
 real local Ollama server.
+
+Phase 4 (activity pipeline) complete: `internal/events` (EventBus pub/sub +
+SQLite-backed Store + EventCompressor), `internal/privacy`
+(deny-by-default PermissionManager, audited via the event bus),
+`internal/activity` (ActivityStore query layer, ContextEngine, activity
+transition graph), `internal/habits` (n-gram habit mining over session
+history), `internal/semantic` (LLM-based activity classification, local
+Ollama only by design), `internal/sensors` (Sensor/Manager lifecycle —
+macOS sensors themselves are out of scope for this port; see package doc).
+`internal/pipeline` has an end-to-end test wiring a synthetic sensor
+through the full chain (sensor -> bus -> semantic -> session compression ->
+activity store -> graph -> habit discovery), verified clean under `-race`.
