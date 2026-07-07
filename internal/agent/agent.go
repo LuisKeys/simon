@@ -32,6 +32,16 @@ type Event struct {
 	Data map[string]any
 }
 
+// KnowledgeSearcher is the knowledge-base contract Agent needs, matching
+// the shape of *knowledge.KnowledgeBase.Search. Declared here (rather than
+// importing internal/knowledge directly) so this package doesn't pull in
+// knowledge's embedding/index/extraction dependencies just to support the
+// optional knowledge-context feature — mirrors Python's Agent(knowledge=...)
+// being optional too.
+type KnowledgeSearcher interface {
+	Search(ctx context.Context, query string, topK int) ([]response.KnowledgeHit, error)
+}
+
 // Agent orchestrates memory, tools, and a model provider around the ReAct
 // loop (model -> tool_calls -> execute -> feed back, up to MaxSteps).
 type Agent struct {
@@ -46,6 +56,7 @@ type Agent struct {
 	memory    memory.Memory
 	tools     *tool.Registry
 	onEvent   func(Event)
+	knowledge KnowledgeSearcher
 	// modelOverride bypasses router-based resolution, primarily for tests
 	// that need to script a model.Model's replies deterministically.
 	modelOverride model.Model
@@ -75,6 +86,13 @@ func WithOnEvent(fn func(Event)) Option { return func(a *Agent) { a.onEvent = fn
 // WithModelOverride bypasses router-based provider selection entirely,
 // always using m. Intended for tests that need a scripted model.Model.
 func WithModelOverride(m model.Model) Option { return func(a *Agent) { a.modelOverride = m } }
+
+// WithKnowledge attaches a knowledge base so Run/RunStructured inject
+// relevant context as a system message, mirroring Python's
+// Agent(knowledge=True) default. Knowledge is opt-in here rather than
+// on-by-default: internal/knowledge is a heavier dependency (embeddings,
+// on-disk index) that callers who don't need it shouldn't have to pull in.
+func WithKnowledge(k KnowledgeSearcher) Option { return func(a *Agent) { a.knowledge = k } }
 
 // New builds an Agent bound to settings (used to resolve a model provider
 // and retry/timeout knobs). Knowledge-base integration (Python's
@@ -141,6 +159,14 @@ func (a *Agent) Run(ctx context.Context, prompt string) (response.AgentResponse,
 			}
 		}
 		return response.AgentResponse{Text: toolResult}, nil
+	}
+
+	knowledgeCtx, err := a.knowledgeContext(ctx, prompt)
+	if err != nil {
+		return response.AgentResponse{}, err
+	}
+	if knowledgeCtx != "" {
+		messages = append(messages, model.Message{Role: model.RoleSystem, Content: knowledgeCtx})
 	}
 
 	specs := a.tools.Specs()
@@ -273,6 +299,30 @@ func (a *Agent) resolveModel(prompt string) (model.Model, error) {
 	default:
 		return model.EchoModel{}, nil
 	}
+}
+
+// knowledgeContext searches the attached knowledge base (if any) for
+// prompt, returning a "Relevant knowledge:" system-message body, or "" if
+// no knowledge base is attached or nothing relevant was found — mirroring
+// Python's Agent._knowledge_context (top_k=2).
+func (a *Agent) knowledgeContext(ctx context.Context, prompt string) (string, error) {
+	if a.knowledge == nil {
+		return "", nil
+	}
+	hits, err := a.knowledge.Search(ctx, prompt, 2)
+	if err != nil {
+		return "", err
+	}
+	if len(hits) == 0 {
+		return "", nil
+	}
+
+	var b strings.Builder
+	b.WriteString("Relevant knowledge:")
+	for _, hit := range hits {
+		fmt.Fprintf(&b, "\n- (%s) %s", hit.Source, hit.Text)
+	}
+	return b.String(), nil
 }
 
 func secondsToDuration(seconds float64) time.Duration {

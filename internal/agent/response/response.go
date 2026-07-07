@@ -42,3 +42,13 @@ type AgentResponse struct {
 }
 
 func (r AgentResponse) String() string { return r.Text }
+
+// KnowledgeHit is one knowledge-base search result, shared between
+// internal/knowledge (the producer) and internal/agent (the consumer, via
+// the KnowledgeSearcher interface) so neither package has to import the
+// other just to agree on this shape.
+type KnowledgeHit struct {
+	Text   string
+	Source string
+	Score  float32
+}

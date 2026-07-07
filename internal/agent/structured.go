@@ -75,6 +75,14 @@ func RunStructured[T any](ctx context.Context, a *Agent, prompt string) (T, resp
 	}
 	messages = append(messages, model.Message{Role: model.RoleSystem, Content: schemaInstruction[T]()})
 
+	knowledgeCtx, err := a.knowledgeContext(ctx, prompt)
+	if err != nil {
+		return zero, response.AgentResponse{}, err
+	}
+	if knowledgeCtx != "" {
+		messages = append(messages, model.Message{Role: model.RoleSystem, Content: knowledgeCtx})
+	}
+
 	specs := a.tools.Specs()
 	resp, err := a.complete(ctx, m, messages, specs)
 	if err != nil {

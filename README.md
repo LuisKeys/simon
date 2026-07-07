@@ -15,3 +15,10 @@ Phase 1 (core execution) complete: `internal/model` (+ openai/anthropic/ollama
 providers), `internal/tool` (registration + ToolRunner), `internal/memory`,
 `internal/agent` (ReAct loop + structured output), `internal/multi`
 (Group/Pool/Triage).
+
+Phase 2 (knowledge) complete: `internal/knowledge/embed` (OpenAI/Ollama/Voyage
+embedding providers), `internal/knowledge/index` (from-scratch SIDX binary
+format replacing Python's pickle+numpy), `internal/knowledge/extract`
+(pdf/docx/xlsx/pptx text extraction), `internal/knowledge` (chunking +
+KnowledgeBase), wired into `internal/agent` as an optional knowledge-context
+system message via the KnowledgeSearcher interface.
