@@ -8,7 +8,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/cmd/simon",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Basic Example",
@@ -17,7 +21,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/basic_agent",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Memory Example",
@@ -26,7 +34,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/memory_agent",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Builtin Tools Example",
@@ -35,7 +47,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/builtin_tools_agent",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Tool Runner Example",
@@ -44,7 +60,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/tool_runner_example",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Knowledge Example",
@@ -53,7 +73,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/knowledge_agent",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Parallel Agents Example",
@@ -62,7 +86,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/parallel_agents",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Chat TUI",
@@ -71,7 +99,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/chat_tui",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Persistent Memory Example",
@@ -80,7 +112,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/persistent_memory_agent",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: MCP Agent Example",
@@ -89,7 +125,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/mcp_agent",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Triage Agent Example",
@@ -98,7 +138,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/triage_agent",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Structured Output Example",
@@ -107,7 +151,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/structured_output_agent",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Hooks & Usage Example",
@@ -116,7 +164,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/hooks_agent",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Planner Example",
@@ -125,7 +177,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/planner_agent",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Agent Pool Example",
@@ -134,7 +190,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/agent_pool_example",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Run Context Example",
@@ -143,7 +203,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/run_context_example",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Simon-Go: Activity Pipeline Example",
@@ -152,7 +216,11 @@
             "mode": "auto",
             "program": "${workspaceFolder}/examples/activity_pipeline_example",
             "cwd": "${workspaceFolder}",
-            "envFile": "${workspaceFolder}/.env"
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
         },
         {
             "name": "Debug current test file",
@@ -160,7 +228,10 @@
             "request": "launch",
             "mode": "test",
             "program": "${fileDirname}",
-            "cwd": "${workspaceFolder}"
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            }
         }
     ]
 }
