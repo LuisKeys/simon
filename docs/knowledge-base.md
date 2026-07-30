@@ -1,5 +1,33 @@
 # Knowledge base
 
+Simon has two independent, coexisting retrieval backends, both wired into
+`internal/agent` purely through the `agent.KnowledgeSearcher` interface:
+
+- **Vector `KnowledgeBase`** (`internal/knowledge`) — embeddings + a
+  brute-force vector index (SIDX). Documented in this file, below.
+- **Knowledge Router** (`internal/knowledge/router`) — hierarchical,
+  lexical, embeddings-free routing (category → document → section →
+  evidence). Documented in [Knowledge Router](#knowledge-router), below.
+
+Select which one `simon knowledge`/example code builds via
+`KNOWLEDGE_MODE` (`vector` [default] | `router` | `hybrid` [reserved, not
+implemented]) — see [configuration.md](configuration.md). Neither backend
+imports the other, and `simon index`/the vector `KnowledgeBase` behave
+exactly as before this feature was added.
+
+| Capability | Vector `KnowledgeBase` | Knowledge Router |
+|---|---|---|
+| Embeddings | Required | Not required |
+| Vector index | SIDX | None |
+| Metadata | Minimal (source path only) | Structured YAML (category + document + section) |
+| Retrieval | Chunk similarity | Hierarchical routing |
+| Hardware | Provider-dependent | Low-resource, fully offline |
+| Explainability | Similarity score | Field-level score reasons |
+| Setup | Automatic indexing (`simon index`) | Curated metadata (`simon knowledge build/validate`) |
+| Best fit | Unstructured corpora | Controlled, curated knowledge bases |
+
+## Vector `KnowledgeBase`
+
 Packages: `internal/knowledge` (orchestrator), `internal/knowledge/embed`,
 `internal/knowledge/extract`, `internal/knowledge/index`. All three leaf
 packages are independent of each other; `knowledge.go` is the only file
@@ -233,3 +261,124 @@ to hold one embedding space.
 The package doc comment notes this brute-force approach is "appropriate
 for this SDK's scale" — there is no ANN index, and none is currently
 planned beyond the `Index` interface leaving room for one.
+
+## Knowledge Router
+
+`internal/knowledge/router` — a second retrieval strategy, not a
+replacement for the vector `KnowledgeBase` or a RAG competitor. Rather than
+embedding and searching every chunk, it routes a query through a curated
+taxonomy: `category → subcategory → document → section`, then reads only
+the selected source regions via the existing `extract.Text`. No embeddings,
+vector index, database, or LLM call is involved in retrieval itself.
+
+```
+internal/knowledge/router
+ ├── metadata.go, loader.go, catalog.go, validator.go   (YAML -> in-memory Catalog)
+ ├── tokenizer.go, scorer.go                             (deterministic lexical scoring)
+ ├── category_router.go, document_router.go, section_router.go
+ ├── retrieval.go                                        (bounded extract.Text-backed reads)
+ ├── result.go, router.go                                (SearchResult, public Router API)
+ └── errors.go
+```
+
+It depends only on `internal/knowledge/extract`, `internal/agent/response`,
+`pkg/simonerr`, the standard library, and `gopkg.in/yaml.v3` — it does not
+import `internal/agent`, `internal/knowledge/embed`, or
+`internal/knowledge/index`. Like the vector `KnowledgeBase`, it satisfies
+`agent.KnowledgeSearcher` and attaches with `agent.WithKnowledge(r)`.
+
+### Knowledge directory layout
+
+Directories are categories. Each category directory holds a `category.yaml`;
+each indexed document has a sidecar YAML file (normally matching the source
+file's basename) describing it. An optional root `catalog.yaml` names the
+whole tree. See `internal/knowledge/router/testdata/knowledge_router/` and
+`examples/knowledge_router_agent/knowledge/` for worked examples:
+
+```
+knowledge/
+├── catalog.yaml
+└── software/
+    ├── category.yaml
+    └── databases/
+        ├── category.yaml
+        ├── postgres-workers.md
+        └── postgres-workers.yaml     # source: {path, format} + sections: [{id, start_line, end_line, summary}, ...]
+```
+
+A document's `categories:` list may name more than one category path
+(`software/databases`, `software/distributed-systems`, ...) — it is not
+physically duplicated, just referenced from each category's `Documents`
+slice around one canonical `*Document`. If a document declares no
+categories, non-strict mode attaches it to its physical parent directory;
+strict mode (`KNOWLEDGE_ROUTER_STRICT=true`) treats that as a validation
+error instead.
+
+### Search flow
+
+`Router.SearchDetailed` (which `Search` calls internally with
+`topK`-truncation) runs:
+
+1. **Category routing** — score the root's children, descend into the
+   children of the best `MaxCategories` candidates at each level (descent
+   is not gated on the parent's own score — a broad parent like "software"
+   may share little vocabulary with a query about one specific child), up
+   to `MaxDepth`. A candidate is only added to the result once its own
+   score clears `MinCategoryScore`.
+2. **Document routing** — collect every document referenced by a selected
+   category (deduplicated), score each one's metadata independently (no
+   source content is read here), add a small per-matching-category bonus,
+   keep the best `MaxDocuments` above `MinDocumentScore`.
+3. **Section routing** — score every section of every candidate document
+   (or one synthetic `__document__` section for documents with no declared
+   sections), combine with a weighted share of the parent document's and
+   category's scores (`final = sectionScore + documentScore*0.35 +
+   categoryScore*0.15`), keep the best `MaxSections` above
+   `MinSectionScore`.
+4. **Evidence retrieval** — for each selected section, `extract.Text` the
+   document (cached per search request, so a document referenced by
+   multiple sections is only extracted once), slice out the declared
+   `start_line`/`end_line` range (or a bounded prefix for the synthetic
+   whole-document section), and truncate to `MaxEvidenceCharacters`
+   (default 8000).
+
+Scoring is a deterministic weighted sum over exact-phrase, title/keyword/
+alias/description/summary/category-path matches (see the constants in
+`scorer.go`), normalized by `10 * max(1, tokenCount)` so short and long
+queries land in a comparable range; every match records a human-readable
+reason string, surfaced end-to-end through `SearchResult` and `simon
+knowledge search --explain`.
+
+### Configuration
+
+See [configuration.md](configuration.md) for the full `KNOWLEDGE_ROUTER_*`
+env var table. `router.Config`/`SearchOptions` mirror those settings
+1:1 (`cmd/simon/knowledge.go`'s `routerConfig` is the mapping function).
+
+### CLI
+
+```bash
+simon knowledge build <path>       # load + print catalog counts
+simon knowledge validate [path]    # print every ValidationIssue; exit 1 on any error
+simon knowledge tree [path] [--json]
+simon knowledge search "<query>" [--json] [--explain] [--top-k N] \
+  [--max-categories N] [--max-documents N] [--max-sections N]
+```
+
+`simon index <path>` is unchanged and continues to build the vector
+`KnowledgeBase` — Knowledge Router is exclusively reached through `simon
+knowledge ...`.
+
+### Limitations (MVP)
+
+- No embeddings/vector fallback, BM25/SQLite FTS index, LLM-assisted
+  routing, or query rewriting — pure deterministic lexical scoring.
+- No stemming: `"workers"` will not match a keyword written as
+  `"worker"` — write plural/singular keyword variants explicitly if a
+  query is expected to use either form.
+- No automatic metadata generation or taxonomy discovery — every category
+  and document requires a curated YAML sidecar.
+- No filesystem watching, OCR, HTTP/MCP exposure, or cross-document answer
+  synthesis; `Router.Reload` must be called explicitly to pick up changes.
+- Line-range sections are canonical; `SectionMetadata.Page` is accepted and
+  stored but not yet used for page-aware extraction.

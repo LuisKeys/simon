@@ -1,0 +1,16 @@
+id: software
+name: Software
+
+description: >
+  Documentation about software engineering topics.
+
+summary: >
+  Contains material about programming, systems, and infrastructure,
+  including databases, worker queues, and distributed systems.
+
+keywords:
+  - software
+  - engineering
+
+aliases:
+  - engineering

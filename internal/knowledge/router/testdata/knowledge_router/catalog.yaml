@@ -1,0 +1,5 @@
+version: 1
+id: test-knowledge
+name: Test Knowledge
+description: Fixture catalog used by internal/knowledge/router tests.
+default_language: en

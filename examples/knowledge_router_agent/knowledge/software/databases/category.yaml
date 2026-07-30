@@ -1,0 +1,23 @@
+id: databases
+name: Databases
+
+description: >
+  Documentation about databases, storage, indexing, persistence,
+  and query execution.
+
+summary: >
+  Contains material about relational databases, local stores,
+  search indexes, worker queues, and data access patterns.
+
+keywords:
+  - database
+  - SQL
+  - storage
+  - indexing
+  - persistence
+  - PostgreSQL
+  - worker queue
+
+aliases:
+  - data layer
+  - data storage

@@ -33,7 +33,9 @@ the rest of the SDK yet.
 │ Agent core: internal/agent → internal/model → internal/tool         │
 │             internal/multi, internal/memory, internal/router        │
 ├─────────────────────────────────────────────────────────────────────┤
-│ Knowledge base: internal/knowledge (+ embed, index, extract)        │
+│ Knowledge base: internal/knowledge (+ embed, index)                 │
+│                 internal/knowledge/router (hierarchical/lexical)    │
+│                 both share internal/knowledge/extract               │
 ├─────────────────────────────────────────────────────────────────────┤
 │ Activity pipeline: sensors → events → privacy → semantic →          │
 │                     activity → habits                               │
@@ -50,7 +52,14 @@ These layers are mostly independent of each other:
   pulling embeddings/index/extraction dependencies into every binary that
   just wants a bare agent.
 - The **knowledge base** depends only on `internal/config`,
-  `internal/agent/response`, and `pkg/simonerr`.
+  `internal/agent/response`, and `pkg/simonerr`. It has two independent
+  backends — the original embeddings-based `internal/knowledge` and the
+  newer `internal/knowledge/router` (Knowledge Router) — that both satisfy
+  `agent.KnowledgeSearcher` and share `internal/knowledge/extract`, but
+  neither imports the other or `internal/knowledge/embed`/`index`. Which
+  one a binary builds is a CLI/example-layer decision
+  (`cmd/simon/knowledge.go`'s `buildKnowledgeSearcher`), never the agent
+  core's.
 - The **activity pipeline** is entirely separate from the other three: it
   shares no runtime state with `internal/agent`, and its one LLM-touching
   package (`internal/semantic`) deliberately bypasses `internal/router` to
@@ -114,4 +123,4 @@ Detailed docs per layer:
 - Single test: `go test -run TestName ./internal/pkg/...`
 - Race-sensitive pipeline test: `go test -race ./internal/pipeline/...`
 - Vet: `go vet ./...` (no linter, no Makefile, no CI workflow configured)
-- Run the CLI: `go run ./cmd/simon chat|ask|index|plan`
+- Run the CLI: `go run ./cmd/simon chat|ask|index|plan|knowledge`

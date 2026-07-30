@@ -25,6 +25,25 @@ type Settings struct {
 	EmbeddingProvider  string
 	EmbeddingModel     string
 
+	// KnowledgeMode selects the knowledge backend: "vector" (the existing
+	// embeddings + SIDX index KnowledgeBase, the default, for backward
+	// compatibility), "router" (Knowledge Router, hierarchical/lexical,
+	// no embeddings), or "hybrid" (reserved; not implemented, see
+	// cmd/simon's buildKnowledgeSearcher).
+	KnowledgeMode string
+
+	KnowledgeRouterPath string
+
+	KnowledgeRouterMaxCategories int
+	KnowledgeRouterMaxDocuments  int
+	KnowledgeRouterMaxSections   int
+
+	KnowledgeRouterMinCategoryScore float64
+	KnowledgeRouterMinDocumentScore float64
+	KnowledgeRouterMinSectionScore  float64
+
+	KnowledgeRouterStrict bool
+
 	EnableDirDocuments bool
 	EnableDirDownloads bool
 	EnableDirPictures  bool
@@ -61,6 +80,19 @@ func Load() Settings {
 		KnowledgeStorePath: os.Getenv("KNOWLEDGE_STORE_PATH"),
 		EmbeddingProvider:  envOrDefault("EMBEDDING_PROVIDER", "OPENAI"),
 		EmbeddingModel:     envOrDefault("EMBEDDING_MODEL", "text-embedding-3-small"),
+
+		KnowledgeMode:       envOrDefault("KNOWLEDGE_MODE", "vector"),
+		KnowledgeRouterPath: envOrDefault("KNOWLEDGE_ROUTER_PATH", ".simon_knowledge_router"),
+
+		KnowledgeRouterMaxCategories: envIntOrDefault("KNOWLEDGE_ROUTER_MAX_CATEGORIES", 3),
+		KnowledgeRouterMaxDocuments:  envIntOrDefault("KNOWLEDGE_ROUTER_MAX_DOCUMENTS", 5),
+		KnowledgeRouterMaxSections:   envIntOrDefault("KNOWLEDGE_ROUTER_MAX_SECTIONS", 5),
+
+		KnowledgeRouterMinCategoryScore: envFloatOrDefault("KNOWLEDGE_ROUTER_MIN_CATEGORY_SCORE", 0.05),
+		KnowledgeRouterMinDocumentScore: envFloatOrDefault("KNOWLEDGE_ROUTER_MIN_DOCUMENT_SCORE", 0.05),
+		KnowledgeRouterMinSectionScore:  envFloatOrDefault("KNOWLEDGE_ROUTER_MIN_SECTION_SCORE", 0.05),
+
+		KnowledgeRouterStrict: envBoolOrDefault("KNOWLEDGE_ROUTER_STRICT", false),
 
 		EnableDirDocuments: envBoolOrDefault("ENABLE_DIR_DOCUMENTS", true),
 		EnableDirDownloads: envBoolOrDefault("ENABLE_DIR_DOWNLOADS", true),

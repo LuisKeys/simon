@@ -18,6 +18,15 @@ flat `Settings` struct. Copy `.env.example` to `.env` to get started.
 | `KNOWLEDGE_STORE_PATH` | `KnowledgeStorePath` | `""` (CLI falls back to `.simon_knowledge`) | |
 | `EMBEDDING_PROVIDER` | `EmbeddingProvider` | `OPENAI` | `OPENAI` \| `OLLAMA` \| `ANTHROPIC` (→ Voyage) |
 | `EMBEDDING_MODEL` | `EmbeddingModel` | `text-embedding-3-small` | |
+| `KNOWLEDGE_MODE` | `KnowledgeMode` | `vector` | `vector` \| `router` \| `hybrid` (reserved, not implemented — `buildKnowledgeSearcher` returns an error). Selects the backend `cmd/simon`'s `buildKnowledgeSearcher` constructs; see [knowledge-base.md](knowledge-base.md). |
+| `KNOWLEDGE_ROUTER_PATH` | `KnowledgeRouterPath` | `.simon_knowledge_router` | Root of the Knowledge Router catalog directory. |
+| `KNOWLEDGE_ROUTER_MAX_CATEGORIES` | `KnowledgeRouterMaxCategories` | `3` | |
+| `KNOWLEDGE_ROUTER_MAX_DOCUMENTS` | `KnowledgeRouterMaxDocuments` | `5` | |
+| `KNOWLEDGE_ROUTER_MAX_SECTIONS` | `KnowledgeRouterMaxSections` | `5` | |
+| `KNOWLEDGE_ROUTER_MIN_CATEGORY_SCORE` | `KnowledgeRouterMinCategoryScore` | `0.05` | |
+| `KNOWLEDGE_ROUTER_MIN_DOCUMENT_SCORE` | `KnowledgeRouterMinDocumentScore` | `0.05` | |
+| `KNOWLEDGE_ROUTER_MIN_SECTION_SCORE` | `KnowledgeRouterMinSectionScore` | `0.05` | |
+| `KNOWLEDGE_ROUTER_STRICT` | `KnowledgeRouterStrict` | `false` | Escalates recoverable metadata-quality issues (missing categories, empty descriptions, ...) from warnings to errors. |
 | `ENABLE_DIR_DOCUMENTS` | `EnableDirDocuments` | `true` | |
 | `ENABLE_DIR_DOWNLOADS` | `EnableDirDownloads` | `true` | |
 | `ENABLE_DIR_PICTURES` | `EnableDirPictures` | `false` | |

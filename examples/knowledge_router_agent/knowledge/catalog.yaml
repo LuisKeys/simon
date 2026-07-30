@@ -1,0 +1,5 @@
+version: 1
+id: simon-knowledge
+name: Simon Knowledge
+description: Example hierarchical knowledge catalog used by knowledge_router_agent.
+default_language: en

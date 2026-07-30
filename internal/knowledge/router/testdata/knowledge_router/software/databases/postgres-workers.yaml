@@ -1,0 +1,51 @@
+version: 1
+id: postgres-workers
+title: PostgreSQL Worker Queues
+
+description: >
+  Explains how to implement distributed worker queues using PostgreSQL.
+
+summary: >
+  Covers atomic job claiming, SKIP LOCKED, retries, leases,
+  worker failures, and horizontal scaling.
+
+categories:
+  - software/databases
+
+keywords:
+  - PostgreSQL
+  - SKIP LOCKED
+  - worker queue
+  - retry
+  - lease
+  - distributed workers
+
+aliases:
+  - postgres queue
+  - database-backed queue
+
+source:
+  path: postgres-workers.md
+  format: markdown
+
+sections:
+  - id: introduction
+    title: Introduction
+    start_line: 1
+    end_line: 19
+    summary: Introduces PostgreSQL as a lightweight distributed queue.
+
+  - id: claiming-jobs
+    title: Claiming Jobs
+    start_line: 20
+    end_line: 41
+    summary: Explains atomic job claiming using FOR UPDATE SKIP LOCKED.
+    keywords:
+      - SKIP LOCKED
+      - FOR UPDATE
+
+  - id: retries
+    title: Retries and Failures
+    start_line: 42
+    end_line: 60
+    summary: Describes retries, leases, timeouts, and worker recovery.

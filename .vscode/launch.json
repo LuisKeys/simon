@@ -80,6 +80,33 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "Simon-Go: Knowledge Router Example",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/knowledge_router_agent",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Simon-Go: Knowledge Router Example (no LLM)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/knowledge_router_agent",
+            "args": ["-no-llm"],
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Simon-Go: Parallel Agents Example",
             "type": "go",
             "request": "launch",

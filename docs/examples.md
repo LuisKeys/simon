@@ -1,11 +1,12 @@
 # Examples
 
-`examples/` holds ~15 small runnable programs, each demonstrating one
+`examples/` holds ~16 small runnable programs, each demonstrating one
 feature. Every example except `tool_runner_example` (which uses
-`model.EchoModel` deterministically, no network) and, partially,
-`activity_pipeline_example` (degrades gracefully without a local Ollama
-server) needs at least one configured provider — an API key or a running
-Ollama instance — via `.env` in the repo root (see
+`model.EchoModel` deterministically, no network), `knowledge_router_agent`
+run with `-no-llm` (pure lexical retrieval, no embeddings or LLM calls),
+and, partially, `activity_pipeline_example` (degrades gracefully without a
+local Ollama server) needs at least one configured provider — an API key or
+a running Ollama instance — via `.env` in the repo root (see
 [configuration.md](configuration.md)). Run each with:
 
 ```
@@ -30,6 +31,7 @@ subprocesses assuming that working directory).
 | `agent_pool_example` | Heterogeneous parallel agents via `multi.NewPool` — three specialized agents each with its own prompt; wall-clock = slowest agent. Contrast with `parallel_agents`. | `agent`, `config`, `multi` | LLM credentials. |
 | `triage_agent` | Routing tasks to specialist agents via `multi.NewTriage` — an internal router agent picks which of code/math/writing agents handles each of 3 sample tasks. | `agent`, `config`, `multi` | LLM credentials (one extra call for the routing decision itself). |
 | `knowledge_agent` | RAG: indexes a PDF (`examples/knowledge_agent/docs/attention_paper.pdf`) into a knowledge base, then asks the agent 5 questions answerable only from that document. | `agent`, `config`, `knowledge`, `knowledge/embed` | LLM + embedding credentials (default provider `OPENAI`); creates/reuses a `.simon_knowledge` store; must run from repo root so the PDF's relative path resolves. |
+| `knowledge_router_agent` | Knowledge Router: loads a curated category/document YAML catalog (`examples/knowledge_router_agent/knowledge/`, no embeddings), validates it, attaches it via `agent.WithKnowledge`, and asks 2 questions about PostgreSQL worker queues. `-no-llm` prints `SearchDetailed` routing/evidence for both questions with no LLM call at all. | `agent`, `config`, `knowledge/router` | LLM credentials unless run with `-no-llm`; must run from repo root so the catalog's relative path resolves. |
 | `planner_agent` | Goal decomposition + sequential execution via `internal/planner`, printing a live checklist on every status transition (`planner.WithOnUpdate`). | `agent`, `config`, `planner` | LLM credentials (one call to plan, one per task). |
 | `mcp_agent` | Consuming tools from an external MCP server inside an agent (`internal/mcp.New(...).Tools(ctx)`); chains two tool calls (`add_numbers` then `reverse_string`). | `agent`, `config`, `mcp` | LLM credentials; launches `go run ./examples/mcp_agent/server` as a subprocess — `go` must be on `PATH`, run from repo root. |
 | `mcp_agent/server` | Standalone MCP stdio server (companion to the above) exposing `add_numbers`/`reverse_string` via `sdk.AddTool` + `sdk.StdioTransport`. | `github.com/modelcontextprotocol/go-sdk/mcp` | None — pure stdio server, no LLM calls; not meant to be run standalone. |

@@ -299,6 +299,33 @@
 
 ---
 
+## 13b. Knowledge Router: una segunda estrategia de recuperación
+
+**Título de slide:** Knowledge Router — enrutamiento jerárquico sin embeddings
+
+- **No reemplaza al RAG vectorial** — es una **segunda estrategia de
+  recuperación**, para catálogos curados donde no hace falta (o no se
+  quiere pagar el costo de) embeddings, un índice vectorial, ni GPU/nube.
+- **Enrutamiento progresivo**: consulta → categoría → subcategoría →
+  documento → sección → contenido original. Solo se lee el contenido de las
+  secciones finalmente seleccionadas.
+- **Metadata YAML curada** (`category.yaml` por categoría, un YAML sidecar
+  por documento con sus secciones y rangos de línea) en vez de indexado
+  automático — más trabajo de curación, a cambio de **explicabilidad total**
+  (cada score trae sus razones: qué palabra clave, título o resumen matcheó).
+- Reutiliza `internal/knowledge/extract` para leer el contenido — mismo
+  soporte de formatos, sin duplicar lógica de extracción.
+- Implementa la misma interfaz `KnowledgeSearcher`, así que se conecta con
+  `agent.WithKnowledge(...)` exactamente igual que la base vectorial.
+- Nuevos subcomandos: `simon knowledge build|validate|tree|search`.
+  `simon index` y la base vectorial **no cambian**.
+
+> **Nota del orador:** Vincular con el ejemplo `knowledge_router_agent` —
+> corriéndolo con `-no-llm` se ve el enrutamiento completo (categoría →
+> documento → sección → evidencia) sin ninguna llamada a un LLM.
+
+---
+
 # PILAR 3 — Pipeline de actividad (local-first)
 
 ## 14. El flujo de datos de actividad
@@ -448,6 +475,10 @@
 
 - **`knowledge_agent`** — **RAG completo**: indexa un PDF (el paper
   "Attention") y responde 5 preguntas contestables solo desde ese documento.
+- **`knowledge_router_agent`** — **Knowledge Router**: carga un catálogo YAML
+  curado (sin embeddings), lo valida, lo conecta con `agent.WithKnowledge`, y
+  responde 2 preguntas. Con `-no-llm` muestra el enrutamiento y la evidencia
+  sin ninguna llamada a un LLM.
 - **`chat_tui`** — chat interactivo en TUI con un agente con **personalidad**
   ("Luke", un chef experto) y memoria activada.
 - **`planner_agent`** — **descomposición de objetivo + ejecución secuencial**,
@@ -529,7 +560,8 @@
 | Memoria | `internal/memory` | `memory_agent`, `persistent_memory_agent` |
 | Multi-agente | `internal/multi` | `parallel_agents`, `agent_pool_example`, `triage_agent` |
 | Proveedores / router | `internal/model`, `internal/router` | (transversal) |
-| RAG / conocimiento | `internal/knowledge` (+ embed/index/extract) | `knowledge_agent` |
+| RAG / conocimiento (vectorial) | `internal/knowledge` (+ embed/index/extract) | `knowledge_agent` |
+| Knowledge Router (jerárquico, sin embeddings) | `internal/knowledge/router` (+ extract) | `knowledge_router_agent` |
 | CLI | `cmd/simon` | (chat/ask/index/plan) |
 | TUI de chat | `internal/tui` | `chat_tui` |
 | Planner | `internal/planner` | `planner_agent` |

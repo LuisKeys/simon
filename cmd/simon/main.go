@@ -52,6 +52,8 @@ func run(argv []string) int {
 		return cmdIndex(settings, model.Args())
 	case "plan":
 		return cmdPlan(settings, *modelFlag, model.Args())
+	case "knowledge":
+		return cmdKnowledge(settings, model.Args())
 	default:
 		fmt.Fprintf(os.Stderr, "simon: unknown command %q\n", command)
 		usage()
@@ -88,7 +90,9 @@ Commands:
   chat            Start an interactive terminal chat.
   ask <prompt>    Run a single prompt and print the answer.
   index <path>    Index a file or folder into the knowledge base.
-  plan <goal>     Decompose a goal into tasks and run them.`)
+  plan <goal>     Decompose a goal into tasks and run them.
+  knowledge       Build, validate, inspect, or search a Knowledge Router
+                  catalog (subcommands: build, validate, tree, search).`)
 }
 
 func cmdChat(settings config.Settings, model string) int {

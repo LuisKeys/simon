@@ -36,7 +36,7 @@ programs demonstrating individual features.
 - Single test: `go test -run TestName ./internal/pkg/...`
 - Race-sensitive pipeline test: `go test -race ./internal/pipeline/...`
 - Vet: `go vet ./...` (no golangci-lint or other configured linter; no Makefile, no CI workflow)
-- Run the CLI: `go run ./cmd/simon chat|ask|index|plan`
+- Run the CLI: `go run ./cmd/simon chat|ask|index|plan|knowledge`
 
 ## Status
 
@@ -74,3 +74,12 @@ macOS sensors themselves are out of scope for this port; see package doc).
 `internal/pipeline` has an end-to-end test wiring a synthetic sensor
 through the full chain (sensor -> bus -> semantic -> session compression ->
 activity store -> graph -> habit discovery), verified clean under `-race`.
+
+Knowledge Router complete: `internal/knowledge/router` — a second,
+embeddings-free `agent.KnowledgeSearcher` backend that routes queries
+through curated category/document/section YAML metadata instead of a
+vector index, reusing `internal/knowledge/extract` for source reads.
+Selected via `KNOWLEDGE_MODE=router`; exposed through `simon knowledge
+build|validate|tree|search`. The default `KNOWLEDGE_MODE` remains `vector`,
+so `simon index` and the existing `internal/knowledge` KnowledgeBase are
+unchanged. See [docs/knowledge-base.md](docs/knowledge-base.md).
