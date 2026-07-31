@@ -250,6 +250,136 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "Simon-Go: Public SDK - Basic Agent",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/public_basic_agent",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Simon-Go: Public SDK - Tools",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/public_tools",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Simon-Go: Public SDK - Structured Output",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/public_structured_output",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Simon-Go: Public SDK - Memory",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/public_memory",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Simon-Go: Public SDK - Knowledge",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/public_knowledge",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Simon-Go: Public SDK - Streaming",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/public_streaming",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Simon-Go: Public SDK - Cancellation",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/public_cancellation",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Simon-Go: Public SDK - Tool Approval",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/public_tool_approval",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Simon-Go: Public SDK - Parallel Sessions",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/public_parallel_sessions",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Simon-Go: Public SDK - Desktop (Wails pattern)",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceFolder}/examples/public_desktop_wails",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "env": {
+                "GODEBUG": "asyncpreemptoff=1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
             "name": "Debug current test file",
             "type": "go",
             "request": "launch",

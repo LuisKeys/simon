@@ -16,9 +16,6 @@ import (
 	"simon-go/internal/config"
 	"simon-go/internal/memory"
 	"simon-go/internal/model"
-	"simon-go/internal/model/anthropic"
-	"simon-go/internal/model/ollama"
-	"simon-go/internal/model/openai"
 	"simon-go/internal/reliability"
 	"simon-go/internal/router"
 	"simon-go/internal/tool"
@@ -189,6 +186,8 @@ func (a *Agent) Run(ctx context.Context, prompt string) (response.AgentResponse,
 			Role: model.RoleAssistant, Content: resp.Text, ToolCalls: resp.ToolCalls,
 		})
 		for _, call := range resp.ToolCalls {
+			a.emit("tool_requested", map[string]any{"tool": call.Name, "arguments": call.Arguments})
+			a.emit("tool_started", map[string]any{"tool": call.Name, "arguments": call.Arguments})
 			result, _ := tool.RunToolCall(a.tools, call)
 			a.emit("tool_called", map[string]any{"tool": call.Name, "arguments": call.Arguments, "result": truncate(result, 200)})
 			messages = append(messages, model.Message{Role: model.RoleTool, Content: result, ToolCallID: call.ID})
@@ -296,16 +295,7 @@ func (a *Agent) resolveModel(prompt string) (model.Model, error) {
 	choice := a.router.Resolve(router.ResolveOptions{Model: a.modelName, Task: prompt})
 	a.emit("model_selected", map[string]any{"provider": string(choice.Provider), "model": choice.Model})
 
-	switch choice.Provider {
-	case router.ProviderOpenAI:
-		return openai.New(a.settings.OpenAIAPIKey, choice.Model), nil
-	case router.ProviderAnthropic:
-		return anthropic.New(a.settings.AnthropicAPIKey, choice.Model), nil
-	case router.ProviderOllama:
-		return ollama.New(a.settings.OllamaHost, choice.Model)
-	default:
-		return model.EchoModel{}, nil
-	}
+	return BuildProviderModel(a.settings, choice)
 }
 
 // knowledgeContext searches the attached knowledge base (if any) for

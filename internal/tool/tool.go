@@ -50,7 +50,7 @@ func (t Tool) Spec() model.ToolSpec {
 // struct tags (using github.com/invopop/jsonschema), the same tags used to
 // unmarshal a model's tool-call arguments before calling fn.
 func New[P any](name, description string, fn func(ctx context.Context, params P) (string, error)) Tool {
-	schema := schemaFor[P]()
+	schema := SchemaFor[P]()
 	return Tool{
 		Name:        name,
 		Description: description,
@@ -80,10 +80,12 @@ func NewRaw(name, description string, schema map[string]any, fn func(ctx context
 	return Tool{Name: name, Description: description, Schema: schema, fn: fn}
 }
 
-// schemaFor reflects P into a flat (non-$ref) JSON schema object, matching
+// SchemaFor reflects P into a flat (non-$ref) JSON schema object, matching
 // the {"type": "object", "properties": {...}, "required": [...]} shape
-// Python's _build_schema produces.
-func schemaFor[P any]() map[string]any {
+// Python's _build_schema produces. Exported so the public tool package can
+// build schemas for typed constructors without duplicating this reflection
+// logic.
+func SchemaFor[P any]() map[string]any {
 	reflector := &jsonschema.Reflector{
 		DoNotReference:            true,
 		ExpandedStruct:            true,

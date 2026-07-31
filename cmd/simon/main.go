@@ -13,11 +13,11 @@ import (
 
 	"simon-go/internal/agent"
 	"simon-go/internal/config"
-	"simon-go/internal/knowledge"
-	"simon-go/internal/knowledge/embed"
 	"simon-go/internal/memory"
 	"simon-go/internal/planner"
 	"simon-go/internal/tui"
+	"simon-go/knowledge"
+	"simon-go/simon"
 )
 
 func main() {
@@ -47,7 +47,7 @@ func run(argv []string) int {
 	case "chat":
 		return cmdChat(settings, *modelFlag)
 	case "ask":
-		return cmdAsk(settings, *modelFlag, model.Args())
+		return cmdAsk(*modelFlag, model.Args())
 	case "index":
 		return cmdIndex(settings, model.Args())
 	case "plan":
@@ -104,13 +104,33 @@ func cmdChat(settings config.Settings, model string) int {
 	return 0
 }
 
-func cmdAsk(settings config.Settings, model string, args []string) int {
+// cmdAsk and cmdIndex are implemented against the public simon/knowledge
+// facade (rather than internal/agent, internal/knowledge directly) to
+// exercise that API as a real consumer. cmdChat and cmdPlan stay on
+// internal/agent for now: tui.Chat and planner.New both take a concrete
+// *agent.Agent and read its fields (e.g. TotalUsage) directly, so migrating
+// them cleanly needs either an escape-hatch accessor on Session or public
+// planner/tui support — left as a follow-up.
+func cmdAsk(model string, args []string) int {
 	if len(args) < 1 {
 		fmt.Fprintln(os.Stderr, "simon: ask requires a prompt")
 		return 2
 	}
-	a := agent.New(settings, agent.WithModel(model))
-	resp, err := a.Run(context.Background(), args[0])
+
+	rt, err := simon.New(simon.WithEnvironment(), simon.WithSettings(simon.Settings{DefaultModel: model}))
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "simon:", err)
+		return 1
+	}
+	defer rt.Close()
+
+	sess, err := rt.NewSession("ask")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "simon:", err)
+		return 1
+	}
+
+	resp, err := sess.Run(context.Background(), args[0])
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "simon:", err)
 		return 1
@@ -126,27 +146,23 @@ func cmdIndex(settings config.Settings, args []string) int {
 	}
 	path := args[0]
 
-	embedder, err := embed.Default(settings)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, "simon:", err)
-		return 1
-	}
 	storePath := settings.KnowledgeStorePath
 	if storePath == "" {
 		storePath = ".simon_knowledge"
 	}
-	kb, err := knowledge.New(embedder, storePath)
+	store, err := knowledge.OpenFromEnv(storePath)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "simon:", err)
 		return 1
 	}
+	defer store.Close()
 
-	count, err := kb.Add(context.Background(), path, false)
+	result, err := store.Add(context.Background(), path, knowledge.AddOptions{})
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "simon:", err)
 		return 1
 	}
-	fmt.Printf("Indexed %d chunk(s) from %s\n", count, path)
+	fmt.Printf("Indexed %d chunk(s) from %s\n", result.ChunksAdded, path)
 	return 0
 }
 

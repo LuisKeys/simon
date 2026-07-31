@@ -28,6 +28,17 @@ var (
 	ErrPermOS  = errors.New("permission (os)")
 )
 
+// Sentinels for the public simon SDK facade (Runtime/Session lifecycle and
+// tool-approval outcomes). These have no Python precedent — they're new
+// surface introduced by the embeddable-library facade.
+var (
+	ErrRuntimeClosed = errors.New("simon runtime is closed")
+	ErrSessionClosed = errors.New("simon session is closed")
+	ErrSessionBusy   = errors.New("simon session already has an active run")
+	ErrRunCancelled  = errors.New("simon run cancelled")
+	ErrToolDenied    = errors.New("tool execution denied")
+)
+
 // Error is a domain error carrying both a domain sentinel (e.g. ErrProvider)
 // and a stdlib-convention sentinel (e.g. ErrRuntime), replicating Python's
 // ProviderError(SimonError, RuntimeError)-style dual inheritance.
@@ -101,4 +112,31 @@ func (e *StructuredOutputError) Unwrap() []error { return []error{ErrSimon, ErrS
 // NewStructuredOutputError constructs a StructuredOutputError.
 func NewStructuredOutputError(msg, rawText string, attempts int) error {
 	return &StructuredOutputError{Msg: msg, RawText: rawText, Attempts: attempts}
+}
+
+// NewRuntimeClosedError reports that a Runtime method was called after Close.
+func NewRuntimeClosedError() error {
+	return newError(ErrRuntimeClosed, ErrRuntime, ErrRuntimeClosed.Error(), nil)
+}
+
+// NewSessionClosedError reports that a Session method was called after Close.
+func NewSessionClosedError() error {
+	return newError(ErrSessionClosed, ErrRuntime, ErrSessionClosed.Error(), nil)
+}
+
+// NewSessionBusyError reports that Run/Stream was called while another
+// execution is already active on the same session.
+func NewSessionBusyError() error {
+	return newError(ErrSessionBusy, ErrRuntime, ErrSessionBusy.Error(), nil)
+}
+
+// NewRunCancelledError reports that a run was cancelled via Session.Cancel
+// or context cancellation/deadline.
+func NewRunCancelledError() error {
+	return newError(ErrRunCancelled, ErrRuntime, ErrRunCancelled.Error(), nil)
+}
+
+// NewToolDeniedError reports that an ApprovalPolicy denied a tool call.
+func NewToolDeniedError(toolName string) error {
+	return newError(ErrToolDenied, ErrPermOS, "tool \""+toolName+"\" denied by approval policy", nil)
 }
