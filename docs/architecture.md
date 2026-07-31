@@ -28,6 +28,8 @@ the rest of the SDK yet.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
+│ Public SDK facade: simon, model, tool, knowledge, memory             │
+├─────────────────────────────────────────────────────────────────────┤
 │ Surface: cmd/simon, internal/tui, internal/planner, internal/mcp    │
 ├─────────────────────────────────────────────────────────────────────┤
 │ Agent core: internal/agent → internal/model → internal/tool         │
@@ -44,6 +46,11 @@ the rest of the SDK yet.
 
 These layers are mostly independent of each other:
 
+- The **public SDK facade** (`simon`, `model`, `tool`, `knowledge`,
+  `memory`) depends on the agent core and the knowledge base, the same way
+  `cmd/simon` does, but is a separate, deliberately non-aliasing type
+  system: it exists so a host application embedding Simon never has to
+  import anything under `internal/`. See [public-sdk.md](public-sdk.md).
 - The **surface** layer depends on the agent core and (for `index`/`plan`)
   the knowledge base. It has no dependency on the activity pipeline.
 - The **agent core** depends on nothing above it. `internal/knowledge` is
@@ -71,6 +78,7 @@ Detailed docs per layer:
 - [knowledge-base.md](knowledge-base.md) — ingestion, embeddings, the SIDX binary index format
 - [activity-pipeline.md](activity-pipeline.md) — sensors, events, privacy, semantic classification, habit mining
 - [surface.md](surface.md) — the CLI, TUI, planner, and MCP client
+- [public-sdk.md](public-sdk.md) — the embeddable `simon`/`model`/`tool`/`knowledge`/`memory` facade
 - [examples.md](examples.md) — what each program under `examples/` demonstrates and how to run it
 - [configuration.md](configuration.md) — every environment variable `internal/config` reads, with defaults
 

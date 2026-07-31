@@ -1,10 +1,12 @@
 # Examples
 
-`examples/` holds ~16 small runnable programs, each demonstrating one
+`examples/` holds ~26 small runnable programs, each demonstrating one
 feature. Every example except `tool_runner_example` (which uses
 `model.EchoModel` deterministically, no network), `knowledge_router_agent`
 run with `-no-llm` (pure lexical retrieval, no embeddings or LLM calls),
-and, partially, `activity_pipeline_example` (degrades gracefully without a
+the 10 `public_*` examples (all scripted with `model.EchoModel` or a
+hand-written deterministic `Model`, no network — see below), and,
+partially, `activity_pipeline_example` (degrades gracefully without a
 local Ollama server) needs at least one configured provider — an API key or
 a running Ollama instance — via `.env` in the repo root (see
 [configuration.md](configuration.md)). Run each with:
@@ -36,6 +38,28 @@ subprocesses assuming that working directory).
 | `mcp_agent` | Consuming tools from an external MCP server inside an agent (`internal/mcp.New(...).Tools(ctx)`); chains two tool calls (`add_numbers` then `reverse_string`). | `agent`, `config`, `mcp` | LLM credentials; launches `go run ./examples/mcp_agent/server` as a subprocess — `go` must be on `PATH`, run from repo root. |
 | `mcp_agent/server` | Standalone MCP stdio server (companion to the above) exposing `add_numbers`/`reverse_string` via `sdk.AddTool` + `sdk.StdioTransport`. | `github.com/modelcontextprotocol/go-sdk/mcp` | None — pure stdio server, no LLM calls; not meant to be run standalone. |
 | `activity_pipeline_example` | The full local-first activity pipeline: `privacy.Manager` (deny-by-default) → `events.EventBus` (SQLite-backed) → `semantic.Extractor` → `events.EventCompressor` (sessions) → `activity.GraphBuilder`/`ContextEngine` → `habits.DiscoveryEngine`, seeded with 5 days of synthetic history to trigger pattern detection. | `activity`, `events`, `habits`, `privacy`, `semantic` | None strictly required — degrades gracefully if no local Ollama server is running (semantic classification unavailable, rest of the pipeline still runs on synthetic data). Uses a throwaway SQLite file in a temp dir. Live macOS window-focus sensing is skipped entirely (no macOS `Sensor` implementation exists in this port — see [activity-pipeline.md](activity-pipeline.md)). |
+
+## `examples/public_*` — the public SDK facade
+
+These 10 programs use only the public `simon`/`model`/`tool`/`knowledge`/
+`memory` packages (see [public-sdk.md](public-sdk.md)) — never anything
+under `internal/` — and each is scripted with `model.EchoModel` or a
+small hand-written deterministic `Model`, so **none need a configured
+provider or network access**. Each has a matching `.vscode/launch.json`
+entry named "Simon-Go: Public SDK - \<Name\>".
+
+| Example | Demonstrates |
+|---|---|
+| `public_basic_agent` | Smallest possible consumer: `simon.New()` → `rt.NewSession` → `session.Run`. Uses a real provider from env if configured, else falls back to the router's echo behavior. |
+| `public_tools` | Registering a typed tool (`tool.New`) and a full tool-call round trip against a scripted `Model` that requests it, then finalizes on the result. |
+| `public_tool_approval` | `simon.ApprovalPolicy`: a custom policy denies a `delete_file` tool call and allows a `read_file` call, without touching the filesystem. |
+| `public_memory` | `simon.WithMemoryFactory` + `memory.NewJSONFile`: history persists and round-trips across two `Run` calls on the same session. |
+| `public_knowledge` | `simon.WithKnowledgeBase` with a `knowledge.Searcher` returning one fixed `Hit`, and an echoing `Model` proving the retrieved text reached the prompt. |
+| `public_streaming` | `Session.Stream`: consuming the `<-chan simon.Event` (`run.started` → `model.selected` → tool events → `run.completed`) instead of waiting for the final `Response`. |
+| `public_cancellation` | `Session.Cancel`: a scripted `Model` sleeping 5s is interrupted after 100ms; the event stream ends in `run.cancelled` instead of `run.completed`. |
+| `public_structured_output` | `simon.RunStructured[T]`: a scripted `Model` replies with markdown-fenced JSON, parsed into a typed `ProjectPlan` struct. |
+| `public_parallel_sessions` | Multiple concurrent `Session`s on one `Runtime`, throttled by `simon.WithMaxConcurrentRuns`. |
+| `public_desktop_wails` | The event-forwarding pattern a desktop shell (e.g. Wails) uses to pipe `simon.Event` into a UI loop via `simon.WithEventHandler` — no Wails dependency added. |
 
 ## Notable cross-cutting points
 

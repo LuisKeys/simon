@@ -26,6 +26,7 @@ programs demonstrating individual features.
 - [docs/knowledge-base.md](docs/knowledge-base.md) — document ingestion, embeddings, the SIDX binary index format
 - [docs/activity-pipeline.md](docs/activity-pipeline.md) — sensors, events, privacy, semantic classification, habit mining
 - [docs/surface.md](docs/surface.md) — the CLI, TUI, planner, and MCP client
+- [docs/public-sdk.md](docs/public-sdk.md) — the embeddable `simon`/`model`/`tool`/`knowledge`/`memory` facade for host applications
 - [docs/examples.md](docs/examples.md) — what each program under `examples/` demonstrates and how to run it
 - [docs/configuration.md](docs/configuration.md) — every environment variable, with defaults
 
@@ -83,3 +84,12 @@ Selected via `KNOWLEDGE_MODE=router`; exposed through `simon knowledge
 build|validate|tree|search`. The default `KNOWLEDGE_MODE` remains `vector`,
 so `simon index` and the existing `internal/knowledge` KnowledgeBase are
 unchanged. See [docs/knowledge-base.md](docs/knowledge-base.md).
+
+Public SDK facade complete: `simon` (Runtime/Session), `model`, `tool`,
+`knowledge`, `memory` — an embeddable public surface wrapping
+`internal/agent` for host applications, so a consumer never has to import
+anything under `internal/`. 10 runnable examples under `examples/public_*`
+plus matching `.vscode/launch.json` entries demonstrate tools, memory,
+knowledge, streaming, cancellation, tool approval, structured output,
+parallel sessions, and desktop event forwarding. See
+[docs/public-sdk.md](docs/public-sdk.md).
