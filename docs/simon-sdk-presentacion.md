@@ -212,7 +212,11 @@
   - **InMemory** — slice protegido con mutex, dura lo que vive el proceso.
   - **JSONFile** — un archivo JSON legible por conversación (bajo
     `.simon_chats/`); **sobrevive reinicios del proceso**. Sin path-traversal
-    (usa solo el nombre base).
+    (usa solo el nombre base). `NewJSONFileIn(dir, name)` permite elegir el
+    directorio base cuando `.simon_chats/` relativo al cwd no es apropiado
+    (p. ej. centralizar los chats bajo el directorio de datos propio del
+    proceso consumidor); el nombre sigue saneándose a su basename dentro de
+    `dir`.
 - **Reliability** — helper genérico `Retry` con **backoff exponencial** y
   timeout por intento; parámetros configurables por variables de entorno.
 

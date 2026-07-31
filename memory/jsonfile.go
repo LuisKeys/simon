@@ -13,6 +13,14 @@ func NewJSONFile(path string) Memory {
 	return &jsonFileWrapper{inner: internalmemory.NewJSONFile(path)}
 }
 
+// NewJSONFileIn returns a Memory store persisted as a single JSON file under
+// dir/<basename of name>, instead of the default .simon_chats/. Use this
+// when the process needs its chat history under a specific directory rather
+// than relative to the working directory.
+func NewJSONFileIn(dir, name string) Memory {
+	return &jsonFileWrapper{inner: internalmemory.NewJSONFileIn(dir, name)}
+}
+
 type jsonFileWrapper struct {
 	inner *internalmemory.JSONFile
 }

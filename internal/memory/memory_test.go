@@ -122,6 +122,41 @@ func TestJSONFileClearPersists(t *testing.T) {
 	}
 }
 
+func TestJSONFileInUsesGivenDir(t *testing.T) {
+	dir := t.TempDir()
+	restore := chdirTo(t, dir)
+	defer restore()
+
+	chatsSubdir := filepath.Join(dir, "custom-chats")
+	m := NewJSONFileIn(chatsSubdir, "support.json")
+	if err := m.Add(context.Background(), "user", "help me"); err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err := os.Stat(filepath.Join(chatsSubdir, "support.json")); err != nil {
+		t.Fatalf("expected file under custom dir, got: %v", err)
+	}
+	if _, err := os.Stat(filepath.Join(dir, chatsDir, "support.json")); err == nil {
+		t.Fatalf("did not expect file under default %s when using NewJSONFileIn", chatsDir)
+	}
+}
+
+func TestJSONFileInNameIsSanitizedToBasename(t *testing.T) {
+	dir := t.TempDir()
+	restore := chdirTo(t, dir)
+	defer restore()
+
+	chatsSubdir := filepath.Join(dir, "custom-chats")
+	m := NewJSONFileIn(chatsSubdir, "../../etc/passwd.json")
+	if err := m.Add(context.Background(), "user", "x"); err != nil {
+		t.Fatal(err)
+	}
+
+	if _, err := os.Stat(filepath.Join(chatsSubdir, "passwd.json")); err != nil {
+		t.Fatalf("expected path-traversal name to collapse to basename under custom dir, got: %v", err)
+	}
+}
+
 func chdirTo(t *testing.T, dir string) func() {
 	t.Helper()
 	old, err := os.Getwd()

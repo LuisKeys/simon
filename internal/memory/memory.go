@@ -78,10 +78,23 @@ type JSONFile struct {
 // NewJSONFile returns a JSONFile store rooted at .simon_chats/<basename of name>.
 // An empty name defaults to "conversation.json", matching Python's default.
 func NewJSONFile(name string) *JSONFile {
+	return newJSONFile(chatsDir, name)
+}
+
+// NewJSONFileIn returns a JSONFile store rooted at dir/<basename of name>,
+// instead of the default .simon_chats/. Only the base filename of name is
+// used, same as NewJSONFile, so callers cannot escape dir via path
+// traversal in name — but dir itself is caller-controlled, letting a
+// consuming process centralize chat storage anywhere it needs.
+func NewJSONFileIn(dir, name string) *JSONFile {
+	return newJSONFile(dir, name)
+}
+
+func newJSONFile(dir, name string) *JSONFile {
 	if name == "" {
 		name = "conversation.json"
 	}
-	return &JSONFile{path: filepath.Join(chatsDir, filepath.Base(name))}
+	return &JSONFile{path: filepath.Join(dir, filepath.Base(name))}
 }
 
 func (m *JSONFile) load() error {
