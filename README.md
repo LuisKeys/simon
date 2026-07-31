@@ -19,6 +19,104 @@ See [docs/configuration.md](docs/configuration.md) for every environment
 variable, and [docs/examples.md](docs/examples.md) for ~15 runnable
 programs demonstrating individual features.
 
+## SDK
+
+Simon is a reusable Go module (`github.com/LuisKeys/simon`) as well as a
+runnable CLI: a host application embeds the public `simon`/`model`/`tool`/
+`memory`/`knowledge`/`pkg/simonerr` packages without ever importing anything
+under `internal/`.
+
+### Installation
+
+```bash
+go get github.com/LuisKeys/simon@latest
+```
+
+### Minimal example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"log"
+
+	simon "github.com/LuisKeys/simon"
+	"github.com/LuisKeys/simon/model"
+)
+
+func main() {
+	runtime, err := simon.New(
+		simon.WithModel(model.EchoModel{}),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer runtime.Close()
+
+	session, err := runtime.NewSession(
+		"example",
+		simon.WithSystemPrompt("You are a local personal assistant."),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer session.Close()
+
+	response, err := session.Run(
+		context.Background(),
+		"Hello Simon",
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(response.Text)
+}
+```
+
+### Public packages
+
+| Package     | Purpose                                                          |
+|-------------|-------------------------------------------------------------------|
+| `simon`     | Runtime, sessions, events, approvals and configuration             |
+| `model`     | Model-provider contract                                            |
+| `tool`      | Typed and runtime-defined tools                                    |
+| `memory`    | Conversation persistence contracts and implementations             |
+| `knowledge` | Retrieval and embedding contracts                                  |
+| `simonerr`  | Public error hierarchy                                              |
+
+See [docs/public-sdk.md](docs/public-sdk.md) for the full facade reference,
+and `examples/public_*` for ten runnable programs covering tools, tool
+approval, memory, knowledge, events, streaming, structured output, custom
+models, and parallel sessions.
+
+### Development from another local repository
+
+To iterate on Simon and a consumer repository together, use a `go.work`
+workspace so changes are picked up without publishing a release:
+
+```bash
+mkdir simon-workspace
+cd simon-workspace
+
+git clone git@github.com:LuisKeys/simon.git
+git clone <consumer-repository>
+
+go work init ./simon ./<consumer-directory>
+```
+
+Alternatively, a consumer-only `replace` directive works without a
+workspace:
+
+```go
+replace github.com/LuisKeys/simon => ../simon
+```
+
+A local `replace` directive like this must stay in the *consumer's*
+`go.mod` only — it must never be published in Simon's own root `go.mod`.
+
 ## Documentation
 
 - [docs/architecture.md](docs/architecture.md) — layer map and cross-cutting design decisions (start here)

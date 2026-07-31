@@ -9,8 +9,8 @@ import (
 	openaisdk "github.com/openai/openai-go/v2"
 	"github.com/openai/openai-go/v2/option"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/model"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/model"
 )
 
 // Model calls the OpenAI Chat Completions API.

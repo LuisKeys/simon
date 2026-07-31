@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"simon-go/internal/events"
+	"github.com/LuisKeys/simon/internal/events"
 )
 
 func TestGetSessionsFiltersAndConvertsEndedEvents(t *testing.T) {

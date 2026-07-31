@@ -5,7 +5,7 @@ import (
 
 	"github.com/xuri/excelize/v2"
 
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 // xlsxText joins every sheet's rows tab-separated, one line per non-blank

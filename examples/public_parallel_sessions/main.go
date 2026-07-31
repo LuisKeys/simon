@@ -9,8 +9,8 @@ import (
 	"log"
 	"sync"
 
-	"simon-go/model"
-	"simon-go/simon"
+	"github.com/LuisKeys/simon"
+	"github.com/LuisKeys/simon/model"
 )
 
 func main() {

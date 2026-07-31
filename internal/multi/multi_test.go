@@ -5,10 +5,10 @@ import (
 	"errors"
 	"testing"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/agent/response"
-	"simon-go/internal/config"
-	"simon-go/internal/model"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/model"
 )
 
 func echoAgent() *agent.Agent {

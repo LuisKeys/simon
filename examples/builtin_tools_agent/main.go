@@ -20,9 +20,9 @@ import (
 	"os/exec"
 	"time"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/config"
-	"simon-go/internal/tool"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/tool"
 )
 
 type noParams struct{}

@@ -10,8 +10,8 @@ import (
 	anthropicsdk "github.com/anthropics/anthropic-sdk-go"
 	"github.com/anthropics/anthropic-sdk-go/option"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/model"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/model"
 )
 
 func newTestModel(t *testing.T, modelName string, handler http.HandlerFunc) *Model {

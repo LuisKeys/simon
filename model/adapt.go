@@ -3,8 +3,8 @@ package model
 import (
 	"context"
 
-	"simon-go/internal/agent/response"
-	internalmodel "simon-go/internal/model"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	internalmodel "github.com/LuisKeys/simon/internal/model"
 )
 
 // ToInternal adapts a public Model into internal/model.Model, so it can be

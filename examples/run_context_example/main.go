@@ -26,9 +26,9 @@ import (
 	"fmt"
 	"sync"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/config"
-	"simon-go/internal/tool"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/tool"
 )
 
 // buildTools returns get_user_name/get_user_tier tools bound to one

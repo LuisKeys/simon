@@ -3,7 +3,7 @@ package memory
 import (
 	"context"
 
-	internalmemory "simon-go/internal/memory"
+	internalmemory "github.com/LuisKeys/simon/internal/memory"
 )
 
 // NewJSONFile returns a Memory store persisted as a single JSON file under

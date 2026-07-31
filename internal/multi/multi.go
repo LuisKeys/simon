@@ -11,9 +11,9 @@ import (
 	"strings"
 	"sync"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/agent/response"
-	"simon-go/internal/config"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/config"
 )
 
 // Group runs multiple named agents in parallel over the same prompt,

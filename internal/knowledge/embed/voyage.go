@@ -8,7 +8,7 @@ import (
 	"io"
 	"net/http"
 
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 // Voyage embeds text via Voyage AI's REST API — Anthropic's recommended

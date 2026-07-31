@@ -7,7 +7,7 @@ import (
 	"io"
 	"strings"
 
-	"simon-go/internal/agent"
+	"github.com/LuisKeys/simon/internal/agent"
 )
 
 const banner = "\n" + yellow + bold + "────────────────────────────────────────────────" + reset + "\n" +

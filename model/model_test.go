@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	internalmodel "simon-go/internal/model"
-	"simon-go/model"
+	internalmodel "github.com/LuisKeys/simon/internal/model"
+	"github.com/LuisKeys/simon/model"
 )
 
 func TestEchoModelRepliesWithLastUserMessage(t *testing.T) {

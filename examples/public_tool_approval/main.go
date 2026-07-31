@@ -7,9 +7,9 @@ import (
 	"context"
 	"fmt"
 
-	"simon-go/model"
-	"simon-go/simon"
-	"simon-go/tool"
+	"github.com/LuisKeys/simon"
+	"github.com/LuisKeys/simon/model"
+	"github.com/LuisKeys/simon/tool"
 )
 
 // denyDestructive denies any tool named "delete_file" and allows everything

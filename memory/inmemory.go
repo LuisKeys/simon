@@ -3,7 +3,7 @@ package memory
 import (
 	"context"
 
-	internalmemory "simon-go/internal/memory"
+	internalmemory "github.com/LuisKeys/simon/internal/memory"
 )
 
 // NewInMemory returns an empty, process-local Memory store. ToolCallID,

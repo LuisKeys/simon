@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"simon-go/internal/activity"
-	"simon-go/internal/events"
+	"github.com/LuisKeys/simon/internal/activity"
+	"github.com/LuisKeys/simon/internal/events"
 )
 
 func timeAt(year, month, day, hour, minute int) float64 {

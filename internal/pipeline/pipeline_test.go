@@ -7,14 +7,14 @@ import (
 	"testing"
 	"time"
 
-	"simon-go/internal/activity"
-	"simon-go/internal/agent/response"
-	"simon-go/internal/events"
-	"simon-go/internal/habits"
-	"simon-go/internal/model"
-	"simon-go/internal/privacy"
-	"simon-go/internal/semantic"
-	"simon-go/internal/sensors"
+	"github.com/LuisKeys/simon/internal/activity"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/events"
+	"github.com/LuisKeys/simon/internal/habits"
+	"github.com/LuisKeys/simon/internal/model"
+	"github.com/LuisKeys/simon/internal/privacy"
+	"github.com/LuisKeys/simon/internal/semantic"
+	"github.com/LuisKeys/simon/internal/sensors"
 )
 
 // fakeWindowSensor cycles through a fixed sequence of app names, one per

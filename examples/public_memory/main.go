@@ -9,9 +9,9 @@ import (
 	"log"
 	"os"
 
-	"simon-go/memory"
-	"simon-go/model"
-	"simon-go/simon"
+	"github.com/LuisKeys/simon"
+	"github.com/LuisKeys/simon/memory"
+	"github.com/LuisKeys/simon/model"
 )
 
 func main() {

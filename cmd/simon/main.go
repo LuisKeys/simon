@@ -11,13 +11,13 @@ import (
 	"fmt"
 	"os"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/config"
-	"simon-go/internal/memory"
-	"simon-go/internal/planner"
-	"simon-go/internal/tui"
-	"simon-go/knowledge"
-	"simon-go/simon"
+	"github.com/LuisKeys/simon"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/memory"
+	"github.com/LuisKeys/simon/internal/planner"
+	"github.com/LuisKeys/simon/internal/tui"
+	"github.com/LuisKeys/simon/knowledge"
 )
 
 func main() {

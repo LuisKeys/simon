@@ -11,8 +11,8 @@ import (
 
 	sdk "github.com/modelcontextprotocol/go-sdk/mcp"
 
-	"simon-go/internal/tool"
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/internal/tool"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 // Client connects to an MCP server via stdio, launched by command.

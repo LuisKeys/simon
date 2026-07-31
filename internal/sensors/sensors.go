@@ -22,9 +22,9 @@ import (
 	"sync"
 	"time"
 
-	"simon-go/internal/events"
-	"simon-go/internal/privacy"
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/internal/events"
+	"github.com/LuisKeys/simon/internal/privacy"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 // Sensor is a permanently-running observer. Poll is called on a fixed

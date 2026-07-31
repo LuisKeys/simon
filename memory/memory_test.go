@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"simon-go/memory"
+	"github.com/LuisKeys/simon/memory"
 )
 
 func TestInMemoryAddListClear(t *testing.T) {

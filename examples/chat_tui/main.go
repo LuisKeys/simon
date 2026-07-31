@@ -7,10 +7,10 @@ import (
 	"log"
 	"os"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/config"
-	"simon-go/internal/memory"
-	"simon-go/internal/tui"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/memory"
+	"github.com/LuisKeys/simon/internal/tui"
 )
 
 func main() {

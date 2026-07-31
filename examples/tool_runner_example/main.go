@@ -12,8 +12,8 @@ import (
 	"context"
 	"fmt"
 
-	"simon-go/internal/model"
-	"simon-go/internal/tool"
+	"github.com/LuisKeys/simon/internal/model"
+	"github.com/LuisKeys/simon/internal/tool"
 )
 
 var add = tool.New("add", "Add two integers.",

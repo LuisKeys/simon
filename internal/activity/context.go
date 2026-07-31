@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"simon-go/internal/events"
+	"github.com/LuisKeys/simon/internal/events"
 )
 
 // CurrentActivity is the in-progress session ContextEngine is tracking.

@@ -8,7 +8,7 @@ package model
 import (
 	"context"
 
-	"simon-go/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/agent/response"
 )
 
 // Role identifies who authored a Message, mirroring the "role" key of

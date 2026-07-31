@@ -3,7 +3,7 @@ package router
 import (
 	"strings"
 
-	"simon-go/internal/knowledge/extract"
+	"github.com/LuisKeys/simon/internal/knowledge/extract"
 )
 
 // EvidenceFragment is a bounded region of a document's extracted source

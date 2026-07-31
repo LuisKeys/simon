@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"log"
 
-	"simon-go/model"
-	"simon-go/simon"
+	"github.com/LuisKeys/simon"
+	"github.com/LuisKeys/simon/model"
 )
 
 // uiEvents stands in for a desktop app's event bridge. In a real Wails

@@ -5,11 +5,11 @@ import (
 	"errors"
 	"testing"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/config"
-	"simon-go/internal/memory"
-	"simon-go/internal/model"
-	"simon-go/internal/tool"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/memory"
+	"github.com/LuisKeys/simon/internal/model"
+	"github.com/LuisKeys/simon/internal/tool"
 )
 
 // scriptedModel replays a fixed sequence of responses, one per Complete

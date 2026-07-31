@@ -6,7 +6,7 @@ package activity
 import (
 	"context"
 
-	"simon-go/internal/events"
+	"github.com/LuisKeys/simon/internal/events"
 )
 
 // Session is one completed activity, with everything an

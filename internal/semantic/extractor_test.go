@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/events"
-	"simon-go/internal/model"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/events"
+	"github.com/LuisKeys/simon/internal/model"
 )
 
 type scriptedModel struct {

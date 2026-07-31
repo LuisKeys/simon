@@ -8,7 +8,7 @@ import (
 	"log/slog"
 	"sync"
 
-	"simon-go/internal/events"
+	"github.com/LuisKeys/simon/internal/events"
 )
 
 // Scope is a granular capability a Sensor can request, split intentionally

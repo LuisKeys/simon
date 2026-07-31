@@ -9,7 +9,7 @@ import (
 
 	_ "modernc.org/sqlite"
 
-	"simon-go/internal/events"
+	"github.com/LuisKeys/simon/internal/events"
 )
 
 // Transition is one edge of the activity graph: how often (and when most

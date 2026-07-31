@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 // extractParagraphText reads xmlPath out of the OOXML zip archive at

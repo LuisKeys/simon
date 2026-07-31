@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"simon-go/internal/config"
+	"github.com/LuisKeys/simon/internal/config"
 )
 
 func clearProviderEnv(t *testing.T) {

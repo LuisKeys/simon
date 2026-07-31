@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"simon-go/internal/events"
-	"simon-go/internal/privacy"
+	"github.com/LuisKeys/simon/internal/events"
+	"github.com/LuisKeys/simon/internal/privacy"
 )
 
 // fakeSensor emits one WindowFocusChanged event per poll, up to maxEvents,

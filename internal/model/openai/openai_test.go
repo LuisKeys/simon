@@ -9,8 +9,8 @@ import (
 
 	"github.com/openai/openai-go/v2/option"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/model"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/model"
 )
 
 // newTestModel builds a Model pointed at a local httptest.Server, matching

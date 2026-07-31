@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/config"
-	"simon-go/internal/model"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/model"
 )
 
 func TestChatEchoesResponsesUntilQuit(t *testing.T) {

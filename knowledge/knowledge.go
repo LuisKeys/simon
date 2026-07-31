@@ -6,7 +6,7 @@ package knowledge
 import (
 	"context"
 
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 // Hit is a single retrieved chunk.

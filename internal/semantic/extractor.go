@@ -18,9 +18,9 @@ import (
 	"strings"
 	"sync"
 
-	"simon-go/internal/events"
-	"simon-go/internal/model"
-	"simon-go/internal/model/ollama"
+	"github.com/LuisKeys/simon/internal/events"
+	"github.com/LuisKeys/simon/internal/model"
+	"github.com/LuisKeys/simon/internal/model/ollama"
 )
 
 // DefaultCategories mirrors Python's DEFAULT_CATEGORIES.

@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 
-	internaltool "simon-go/internal/tool"
+	internaltool "github.com/LuisKeys/simon/internal/tool"
 )
 
 // ToInternal adapts a public Tool into internal/tool.Tool so it can be

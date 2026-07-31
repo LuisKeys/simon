@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"simon-go/knowledge"
+	"github.com/LuisKeys/simon/knowledge"
 )
 
 // fakeEmbedder returns a fixed-dimension vector derived from text length,

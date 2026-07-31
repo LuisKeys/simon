@@ -3,7 +3,7 @@ package memory
 import (
 	"context"
 
-	internalmemory "simon-go/internal/memory"
+	internalmemory "github.com/LuisKeys/simon/internal/memory"
 )
 
 // ToInternal adapts any public Memory implementation into

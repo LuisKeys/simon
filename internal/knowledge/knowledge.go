@@ -13,10 +13,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/knowledge/embed"
-	"simon-go/internal/knowledge/extract"
-	"simon-go/internal/knowledge/index"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/knowledge/embed"
+	"github.com/LuisKeys/simon/internal/knowledge/extract"
+	"github.com/LuisKeys/simon/internal/knowledge/index"
 )
 
 // KnowledgeBase chunks and indexes documents, then serves similarity search

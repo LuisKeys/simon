@@ -7,9 +7,9 @@ import (
 	"fmt"
 	"log"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/config"
-	"simon-go/internal/memory"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/memory"
 )
 
 func main() {

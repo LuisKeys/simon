@@ -11,7 +11,7 @@ import (
 	"os"
 	"strings"
 
-	"simon-go/internal/config"
+	"github.com/LuisKeys/simon/internal/config"
 )
 
 // Provider identifies which backend a Choice should be built from.

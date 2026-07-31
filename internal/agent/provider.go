@@ -1,12 +1,12 @@
 package agent
 
 import (
-	"simon-go/internal/config"
-	"simon-go/internal/model"
-	"simon-go/internal/model/anthropic"
-	"simon-go/internal/model/ollama"
-	"simon-go/internal/model/openai"
-	"simon-go/internal/router"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/model"
+	"github.com/LuisKeys/simon/internal/model/anthropic"
+	"github.com/LuisKeys/simon/internal/model/ollama"
+	"github.com/LuisKeys/simon/internal/model/openai"
+	"github.com/LuisKeys/simon/internal/router"
 )
 
 // BuildProviderModel constructs the live model.Model client for choice,

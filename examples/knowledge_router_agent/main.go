@@ -17,9 +17,9 @@ import (
 	"fmt"
 	"log"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/config"
-	"simon-go/internal/knowledge/router"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/knowledge/router"
 )
 
 var questions = []string{

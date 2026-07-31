@@ -8,10 +8,10 @@ import (
 
 	"github.com/invopop/jsonschema"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/model"
-	"simon-go/internal/tool"
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/model"
+	"github.com/LuisKeys/simon/internal/tool"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 // schemaInstruction builds a system message instructing the model to

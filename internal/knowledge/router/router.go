@@ -7,7 +7,7 @@ import (
 	"sort"
 	"sync/atomic"
 
-	"simon-go/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/agent/response"
 )
 
 // Router is Knowledge Router's public entry point. It satisfies

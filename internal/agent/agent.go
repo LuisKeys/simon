@@ -12,14 +12,14 @@ import (
 	"strings"
 	"time"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/config"
-	"simon-go/internal/memory"
-	"simon-go/internal/model"
-	"simon-go/internal/reliability"
-	"simon-go/internal/router"
-	"simon-go/internal/tool"
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/memory"
+	"github.com/LuisKeys/simon/internal/model"
+	"github.com/LuisKeys/simon/internal/reliability"
+	"github.com/LuisKeys/simon/internal/router"
+	"github.com/LuisKeys/simon/internal/tool"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 // Event is emitted through OnEvent at points matching Python's Agent._emit

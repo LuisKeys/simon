@@ -24,7 +24,7 @@ import (
 	"sort"
 	"sync"
 
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 // Chunk is one indexed piece of text and the source it came from.

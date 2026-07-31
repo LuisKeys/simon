@@ -4,9 +4,9 @@ import (
 	"context"
 	"iter"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/model"
-	"simon-go/internal/reliability"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/model"
+	"github.com/LuisKeys/simon/internal/reliability"
 )
 
 // Runner drives Simon's standalone, composable tool-use loop, mirroring

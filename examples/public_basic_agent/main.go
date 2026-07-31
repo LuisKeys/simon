@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"log"
 
-	"simon-go/simon"
+	"github.com/LuisKeys/simon"
 )
 
 func main() {

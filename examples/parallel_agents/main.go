@@ -9,9 +9,9 @@ import (
 	"log"
 	"strings"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/config"
-	"simon-go/internal/multi"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/internal/multi"
 )
 
 func main() {

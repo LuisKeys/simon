@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"simon-go/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/agent/response"
 )
 
 // knowledgeSearcher mirrors agent.KnowledgeSearcher's exact method set. It

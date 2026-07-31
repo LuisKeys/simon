@@ -5,7 +5,7 @@ import (
 
 	"github.com/ledongthuc/pdf"
 
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 func pdfText(path string) (string, error) {

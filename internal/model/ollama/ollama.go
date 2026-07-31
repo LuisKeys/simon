@@ -11,8 +11,8 @@ import (
 
 	ollamasdk "github.com/ollama/ollama/api"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/model"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/model"
 )
 
 // Model calls a local (or remote) Ollama server's /api/chat endpoint.

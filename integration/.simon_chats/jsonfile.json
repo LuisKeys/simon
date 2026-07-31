@@ -1,0 +1,26 @@
+[
+  {
+    "role": "user",
+    "content": "persist this"
+  },
+  {
+    "role": "assistant",
+    "content": "Simon (echo): persist this"
+  },
+  {
+    "role": "user",
+    "content": "persist this"
+  },
+  {
+    "role": "assistant",
+    "content": "Simon (echo): persist this"
+  },
+  {
+    "role": "user",
+    "content": "persist this"
+  },
+  {
+    "role": "assistant",
+    "content": "Simon (echo): persist this"
+  }
+]

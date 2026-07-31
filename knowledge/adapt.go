@@ -3,10 +3,10 @@ package knowledge
 import (
 	"context"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/config"
-	internalknowledge "simon-go/internal/knowledge"
-	internalembed "simon-go/internal/knowledge/embed"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/config"
+	internalknowledge "github.com/LuisKeys/simon/internal/knowledge"
+	internalembed "github.com/LuisKeys/simon/internal/knowledge/embed"
 )
 
 // Open builds a Store backed by embedder and storePath (an on-disk index

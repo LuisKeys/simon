@@ -28,11 +28,11 @@ import (
 	"path/filepath"
 	"time"
 
-	"simon-go/internal/activity"
-	"simon-go/internal/events"
-	"simon-go/internal/habits"
-	"simon-go/internal/privacy"
-	"simon-go/internal/semantic"
+	"github.com/LuisKeys/simon/internal/activity"
+	"github.com/LuisKeys/simon/internal/events"
+	"github.com/LuisKeys/simon/internal/habits"
+	"github.com/LuisKeys/simon/internal/privacy"
+	"github.com/LuisKeys/simon/internal/semantic"
 )
 
 // grantPrivacy builds and initializes a privacy.Manager, then grants

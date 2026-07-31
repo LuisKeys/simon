@@ -10,8 +10,8 @@ import (
 	"regexp"
 	"strings"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/config"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/config"
 )
 
 // Status is a Task's lifecycle state.

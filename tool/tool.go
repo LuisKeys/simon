@@ -9,7 +9,7 @@ import (
 	"context"
 	"encoding/json"
 
-	internaltool "simon-go/internal/tool"
+	internaltool "github.com/LuisKeys/simon/internal/tool"
 )
 
 // Handler executes a tool call given its raw JSON arguments.

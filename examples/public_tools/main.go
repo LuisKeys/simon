@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"log"
 
-	"simon-go/model"
-	"simon-go/simon"
-	"simon-go/tool"
+	"github.com/LuisKeys/simon"
+	"github.com/LuisKeys/simon/model"
+	"github.com/LuisKeys/simon/tool"
 )
 
 // AddParams is the parameter struct for the "add" tool — its json/jsonschema

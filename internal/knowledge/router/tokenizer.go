@@ -26,7 +26,7 @@ type Query struct {
 
 // keepRune reports whether r should be preserved verbatim during
 // normalization (rather than treated as a separator), so technical
-// identifiers such as "simon-go", "internal/knowledge", "pgvector",
+// identifiers such as "github.com/LuisKeys/simon", "internal/knowledge", "pgvector",
 // and "SKIP_LOCKED" survive tokenization.
 func keepRune(r rune) bool {
 	return unicode.IsLetter(r) || unicode.IsNumber(r) ||

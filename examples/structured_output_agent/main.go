@@ -9,8 +9,8 @@ import (
 	"log"
 	"strings"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/config"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/config"
 )
 
 // Recipe mirrors Python's Pydantic Recipe model.

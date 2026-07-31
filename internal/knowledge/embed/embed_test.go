@@ -10,7 +10,7 @@ import (
 
 	"github.com/openai/openai-go/v2/option"
 
-	"simon-go/internal/config"
+	"github.com/LuisKeys/simon/internal/config"
 )
 
 func vectorNorm(v []float32) float64 {

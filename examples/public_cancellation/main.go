@@ -9,8 +9,8 @@ import (
 	"log"
 	"time"
 
-	"simon-go/model"
-	"simon-go/simon"
+	"github.com/LuisKeys/simon"
+	"github.com/LuisKeys/simon/model"
 )
 
 // slowModel takes long enough that a Cancel() issued shortly after Stream

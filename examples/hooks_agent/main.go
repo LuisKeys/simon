@@ -13,8 +13,8 @@ import (
 	"fmt"
 	"log"
 
-	"simon-go/internal/agent"
-	"simon-go/internal/config"
+	"github.com/LuisKeys/simon/internal/agent"
+	"github.com/LuisKeys/simon/internal/config"
 )
 
 func onEvent(event agent.Event) {

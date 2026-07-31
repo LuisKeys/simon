@@ -3,7 +3,7 @@ package router
 import (
 	"fmt"
 
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 // wrapf builds a knowledge-domain error with a "knowledge router: <context>: <cause>"

@@ -6,7 +6,7 @@ import (
 	"errors"
 	"testing"
 
-	"simon-go/tool"
+	"github.com/LuisKeys/simon/tool"
 )
 
 type addParams struct {

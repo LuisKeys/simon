@@ -8,8 +8,8 @@ import (
 	"math"
 	"strings"
 
-	"simon-go/internal/config"
-	"simon-go/pkg/simonerr"
+	"github.com/LuisKeys/simon/internal/config"
+	"github.com/LuisKeys/simon/pkg/simonerr"
 )
 
 // Embedder produces normalized dense vectors for text, the Go analogue of

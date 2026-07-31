@@ -8,9 +8,9 @@ import (
 	"fmt"
 	"log"
 
-	"simon-go/knowledge"
-	"simon-go/model"
-	"simon-go/simon"
+	"github.com/LuisKeys/simon"
+	"github.com/LuisKeys/simon/knowledge"
+	"github.com/LuisKeys/simon/model"
 )
 
 // staticSearcher is a minimal knowledge.Searcher that always returns the

@@ -1,4 +1,4 @@
-module simon-go
+module github.com/LuisKeys/simon
 
 go 1.26.2
 

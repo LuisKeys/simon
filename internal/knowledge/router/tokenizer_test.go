@@ -23,7 +23,7 @@ func TestTokenizeRemovesStopWords(t *testing.T) {
 }
 
 func TestTokenizePreservesTechnicalIdentifiers(t *testing.T) {
-	cases := []string{"PostgreSQL", "pgvector", "simon-go", "internal/knowledge", "KnowledgeSearcher"}
+	cases := []string{"PostgreSQL", "pgvector", "github.com/LuisKeys/simon", "internal/knowledge", "KnowledgeSearcher"}
 	for _, c := range cases {
 		q := Tokenize(c)
 		if len(q.Tokens) != 1 {

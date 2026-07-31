@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"simon-go/internal/agent/response"
-	"simon-go/internal/config"
+	"github.com/LuisKeys/simon/internal/agent/response"
+	"github.com/LuisKeys/simon/internal/config"
 )
 
 // fakeKnowledge is a minimal KnowledgeSearcher for testing the agent's

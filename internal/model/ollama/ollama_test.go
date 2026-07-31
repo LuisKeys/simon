@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"simon-go/internal/model"
+	"github.com/LuisKeys/simon/internal/model"
 )
 
 func newTestModel(t *testing.T, handler http.HandlerFunc) *Model {

@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"log"
 
-	"simon-go/model"
-	"simon-go/simon"
+	"github.com/LuisKeys/simon"
+	"github.com/LuisKeys/simon/model"
 )
 
 // ProjectPlan is the target shape for structured output.
